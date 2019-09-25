@@ -1,0 +1,69 @@
+enable
+clock set 10:32:10 25 sep 2019
+configure terminal
+hostname RT-01
+banner motd "acesso apenas para pessoas autorizadas"
+enable secret CasaArryn
+service password-encryption
+ip domain-name grupo4.local
+crypto key generate rsa general-keys modulus 1024
+username FabricioGomes privilege 15 secret Gomes
+username AlexFaria  privilege 15 secret Faria
+username ThomazRissi privilege 15 secret Rissi
+username pedrogrupo7 privilege 15 secret pedro123
+username caiogrupo7 privilege 15 secret caio123
+username viniviusgrupo7 privilege 15 secret vinicius123
+line console 0
+password ConsoleArryn
+login
+exit
+line vty 0 15
+transport input ssh
+exec-timeout 9
+login local
+interface gigabitethernet0/1
+no shutdown
+description interface de gerenciamento
+exit
+interface gigabitethernet 0/1.20
+encapsulation dot1q 20
+ip address 192.168.4.1 255.255.255.128
+description interface vlan 20
+exit
+interface gigabitethernet 0/1.10
+encapsulation dot1q 10
+ip address 192.168.4.129 255.255.255.224
+description interface vlan 10
+exit
+interface gigabitethernet 0/1.30
+encapsulation dot1q 30
+ip address 192.168.4.161 255.255.255.240
+description interface vlan 30
+exit
+interface gigabitethernet 0/1.100
+encapsulation dot1q 100
+ip address 192.168.4.177 255.255.255.240
+description interface vlan 100
+exit
+interface gigabitethernet 0/0.10
+encapsulation dot1q 10
+ip address 192.168.7.1 255.255.255.128
+description interface vlan 10
+exit
+interface gigabitethernet 0/0.20
+encapsulation dot1q 20
+ip address 192.168.7.129 255.255.255.224
+description interface vlan 20
+exit
+interface gigabitethernet 0/0.30
+encapsulation dot1q 30
+ip address 192.168.7.161 255.255.255.240
+description interface vlan 30
+exit
+interface gigabitethernet 0/0.100
+encapsulation dot1q 100
+ip address 192.168.7.177 255.255.255.240
+description interface vlan 100
+
+
+
